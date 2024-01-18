@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pierpaolo.u5w2d2.entities.Post;
+import pierpaolo.u5w2d2.payloads.posts.NewPostDTO;
+import pierpaolo.u5w2d2.payloads.posts.NewPostResponseDTO;
 import pierpaolo.u5w2d2.services.PostService;
 
 import java.util.List;
@@ -39,7 +41,11 @@ public class PostsController {
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Post savepost(@RequestBody Post body, @RequestParam long id){return postService.save(body, id);}
+    public NewPostResponseDTO savepost(@RequestBody NewPostDTO newPostPayload, @RequestParam long id){
+        Post newPost = postService.save(newPostPayload);
+        return new NewPostResponseDTO(newPost.getId());
+//        return postService.save(body, id);
+    }
     @GetMapping("/{id}")
     public Post findById(@PathVariable int id){return postService.findById(id);}
     @PutMapping("/{id}")

@@ -14,6 +14,7 @@ import pierpaolo.u5w2d2.entities.Autore;
 import pierpaolo.u5w2d2.entities.Post;
 import pierpaolo.u5w2d2.exceptions.BadRequestException;
 import pierpaolo.u5w2d2.exceptions.NotFoundException;
+import pierpaolo.u5w2d2.payloads.posts.NewPostDTO;
 import pierpaolo.u5w2d2.repositories.AutoreDAO;
 import pierpaolo.u5w2d2.repositories.PostDAO;
 
@@ -39,11 +40,14 @@ public class PostService {
         return this.postDAO.findByCategoria(category, pageable);
     }
 
-    public Post save(Post body, long id){
-        Autore found = autoreDAO.findById(id).orElseThrow(()->new NotFoundException(id));
-        body.setAutore(found);
-        postDAO.findByTitolo(body.getTitolo()).ifPresent(post -> {throw new BadRequestException("Titolo " + post.getTitolo() + " già in uso!");});
-         return postDAO.save(body);
+    public Post save(NewPostDTO body){
+        Post newPost = new Post();
+        newPost.setTitolo(body.titolo());
+        newPost.setCategoria(body.categoria());
+        newPost.setCover(body.cover());
+        newPost.setTempoDiLettura(body.tempoDiLettura());
+        newPost.setContenuto(body.contenuto());
+        return postDAO.save(newPost);
     }
     public Post findById(long id){
         return postDAO.findById(id).orElseThrow(()->new NotFoundException(id));
