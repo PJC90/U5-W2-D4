@@ -14,7 +14,7 @@ public record NewAutoreDTO(
         @NotEmpty(message = "Il cognome è obbligatorio")
         String cognome,
         @Email(message = "L'indirizzo inserito non è un indirizzo valido")
-        @NotEmpty(message = "La mail è un campo obbligatorio!")
+        @NotNull(message = "La mail è un campo obbligatorio!")
         String email,
         @NotNull(message = "La data di nascita è obbligatoria")
         LocalDate dataDiNascita
