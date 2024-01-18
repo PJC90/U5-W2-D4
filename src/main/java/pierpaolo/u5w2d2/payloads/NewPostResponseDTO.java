@@ -1,4 +1,4 @@
-package pierpaolo.u5w2d2.payloads.posts;
+package pierpaolo.u5w2d2.payloads;
 
 public record NewPostResponseDTO(int id) {
 

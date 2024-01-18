@@ -1,4 +1,4 @@
-package pierpaolo.u5w2d2.payloads.posts;
+package pierpaolo.u5w2d2.payloads;
 
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;

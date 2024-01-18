@@ -6,8 +6,10 @@ import pierpaolo.u5w2d2.entities.Autore;
 import pierpaolo.u5w2d2.entities.Post;
 import pierpaolo.u5w2d2.exceptions.BadRequestException;
 import pierpaolo.u5w2d2.exceptions.NotFoundException;
+import pierpaolo.u5w2d2.payloads.NewAutoreDTO;
 import pierpaolo.u5w2d2.repositories.AutoreDAO;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,9 +20,14 @@ public class AutoreService {
     @Autowired
     private AutoreDAO autoreDAO;
     public List<Autore> getAutori(){ return this.autoreDAO.findAll();}
-    public Autore save(Autore body){
-        body.setAvatar("https://ui-avatars.com/api/?name=" + body.getNome() + "+" + body.getCognome());
-        return autoreDAO.save(body);
+    public Autore save(NewAutoreDTO body){
+        Autore newAutore = new Autore();
+        newAutore.setAvatar("https://ui-avatars.com/api/?name=" + body.nome() + "+" + body.cognome());
+        newAutore.setNome(body.nome());
+        newAutore.setCognome(body.cognome());
+        newAutore.setEmail(body.email());
+        newAutore.setDataDiNascita(body.dataDiNascita());
+        return autoreDAO.save(newAutore);
     }
     public Autore findById(long id){
         return autoreDAO.findById(id).orElseThrow(()->new NotFoundException(id));

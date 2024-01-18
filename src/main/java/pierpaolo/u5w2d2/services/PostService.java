@@ -5,23 +5,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import pierpaolo.u5w2d2.entities.Autore;
 import pierpaolo.u5w2d2.entities.Post;
-import pierpaolo.u5w2d2.exceptions.BadRequestException;
 import pierpaolo.u5w2d2.exceptions.NotFoundException;
-import pierpaolo.u5w2d2.payloads.posts.NewPostDTO;
-import pierpaolo.u5w2d2.repositories.AutoreDAO;
+import pierpaolo.u5w2d2.payloads.NewPostDTO;
 import pierpaolo.u5w2d2.repositories.PostDAO;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
 
 @Service
 public class PostService {

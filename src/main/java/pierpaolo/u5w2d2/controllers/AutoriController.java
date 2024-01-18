@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pierpaolo.u5w2d2.entities.Autore;
 import pierpaolo.u5w2d2.entities.Post;
+import pierpaolo.u5w2d2.payloads.NewAutoreDTO;
+import pierpaolo.u5w2d2.payloads.NewAutoreResponseDTO;
 import pierpaolo.u5w2d2.services.AutoreService;
 
 import java.util.List;
@@ -18,7 +20,10 @@ public class AutoriController {
     public List<Autore> getAutori(){ return autoreService.getAutori();}
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Autore savepost(@RequestBody Autore body){return autoreService.save(body);}
+    public NewAutoreResponseDTO savepost(@RequestBody NewAutoreDTO body){
+        Autore newAutore = autoreService.save(body);
+        return new NewAutoreResponseDTO(newAutore.getId());
+    }
     @GetMapping("/{id}")
     public Autore findById(@PathVariable int id){return autoreService.findById(id);}
     @PutMapping("/{id}")

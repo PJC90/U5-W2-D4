@@ -5,11 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pierpaolo.u5w2d2.entities.Post;
-import pierpaolo.u5w2d2.payloads.posts.NewPostDTO;
-import pierpaolo.u5w2d2.payloads.posts.NewPostResponseDTO;
+import pierpaolo.u5w2d2.payloads.NewPostDTO;
+import pierpaolo.u5w2d2.payloads.NewPostResponseDTO;
 import pierpaolo.u5w2d2.services.PostService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/posts")
