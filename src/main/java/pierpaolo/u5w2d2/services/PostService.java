@@ -40,7 +40,7 @@ public class PostService {
         return this.postDAO.findByCategoria(category, pageable);
     }
 
-    public Post save(NewPostDTO body){
+    public Post save(NewPostDTO body, int id){
         Post newPost = new Post();
         newPost.setTitolo(body.titolo());
         newPost.setCategoria(body.categoria());
