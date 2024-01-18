@@ -41,10 +41,9 @@ public class PostsController {
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public NewPostResponseDTO savepost(@RequestBody NewPostDTO newPostPayload, @RequestParam int id){
-        Post newPost = postService.save(newPostPayload, id);
+    public NewPostResponseDTO savepost(@RequestBody NewPostDTO newPostPayload){
+        Post newPost = postService.save(newPostPayload);
         return new NewPostResponseDTO(newPost.getId());
-//        return postService.save(body, id);
     }
     @GetMapping("/{id}")
     public Post findById(@PathVariable int id){return postService.findById(id);}

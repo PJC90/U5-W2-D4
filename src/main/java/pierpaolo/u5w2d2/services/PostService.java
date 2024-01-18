@@ -28,7 +28,7 @@ public class PostService {
     @Autowired
     private PostDAO postDAO;
     @Autowired
-    private AutoreDAO autoreDAO;
+    private AutoreService autoreService;
 
     public Page<Post> getPosts(int page, int size, String orderBy){
         if(size >= 100) size = 100;
@@ -40,13 +40,15 @@ public class PostService {
         return this.postDAO.findByCategoria(category, pageable);
     }
 
-    public Post save(NewPostDTO body, int id){
+    public Post save(NewPostDTO body){
+        Autore autore = autoreService.findById(body.autoreId());
         Post newPost = new Post();
         newPost.setTitolo(body.titolo());
         newPost.setCategoria(body.categoria());
-        newPost.setCover(body.cover());
+        newPost.setCover("http://picsum.photos/200/300");
         newPost.setTempoDiLettura(body.tempoDiLettura());
         newPost.setContenuto(body.contenuto());
+        newPost.setAutore(autore);
         return postDAO.save(newPost);
     }
     public Post findById(long id){
