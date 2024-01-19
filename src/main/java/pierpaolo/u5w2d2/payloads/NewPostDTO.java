@@ -23,6 +23,6 @@ public record NewPostDTO(
          int tempoDiLettura,
          @NotNull(message = "autoreId è un campo obbligatorio!")
          int autoreId
-         //p
+         //pa
 ) {
 }
