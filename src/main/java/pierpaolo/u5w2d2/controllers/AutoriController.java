@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pierpaolo.u5w2d2.config.MailgunSender;
 import pierpaolo.u5w2d2.entities.Autore;
 import pierpaolo.u5w2d2.entities.Post;
 import pierpaolo.u5w2d2.exceptions.BadRequestException;
@@ -19,6 +20,8 @@ import java.util.List;
 public class AutoriController {
     @Autowired
     private AutoreService autoreService;
+    @Autowired
+    private MailgunSender mailgunSender;
     @GetMapping
     public List<Autore> getAutori(){ return autoreService.getAutori();}
     @PostMapping
@@ -29,6 +32,8 @@ public class AutoriController {
             throw new BadRequestException(validation.getAllErrors());
         } else {
             Autore newAutore = autoreService.save(body);
+
+            mailgunSender.sendRegistrationEmail(newAutore.getEmail());
             return new NewAutoreResponseDTO(newAutore.getId());
         }
 

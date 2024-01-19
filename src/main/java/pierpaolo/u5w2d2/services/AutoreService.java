@@ -19,6 +19,7 @@ import java.util.Random;
 public class AutoreService {
     @Autowired
     private AutoreDAO autoreDAO;
+
     public List<Autore> getAutori(){ return this.autoreDAO.findAll();}
     public Autore save(NewAutoreDTO body){
         Autore newAutore = new Autore();
