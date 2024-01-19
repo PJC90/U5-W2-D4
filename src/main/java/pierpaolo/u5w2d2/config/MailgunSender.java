@@ -18,13 +18,13 @@ public class MailgunSender {
         this.mailgunApiKey = mailgunApiKey;
         this.mailgunDomainName = mailgunDomainName;
     }
-    public void sendRegistrationEmail(String recipient){
+    public void sendRegistrationEmail(Autore recipient){
         HttpResponse<JsonNode> response = Unirest.post("https://api.mailgun.net/v3/" + this.mailgunDomainName + "/messages")
                 .basicAuth("api", this.mailgunApiKey)
                 .queryString("from", "Colasante Pierpaolo <colasantep@outlook.it>")
-                .queryString("to", "colasantepierpaolo@gmail.com")
+                .queryString("to", recipient.getEmail())
                 .queryString("subject", "Registrazione avvenuta con successo!")
-                .queryString("text", "Complimenti  per esserti registrato " )
+                .queryString("text", "Complimenti per esserti registrato " + recipient.getNome())
                 .asJson();
         System.out.println("mail inviata");
     }

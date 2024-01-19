@@ -20,8 +20,7 @@ import java.util.List;
 public class AutoriController {
     @Autowired
     private AutoreService autoreService;
-    @Autowired
-    private MailgunSender mailgunSender;
+
     @GetMapping
     public List<Autore> getAutori(){ return autoreService.getAutori();}
     @PostMapping
@@ -32,8 +31,6 @@ public class AutoriController {
             throw new BadRequestException(validation.getAllErrors());
         } else {
             Autore newAutore = autoreService.save(body);
-
-            mailgunSender.sendRegistrationEmail(newAutore.getEmail());
             return new NewAutoreResponseDTO(newAutore.getId());
         }
 

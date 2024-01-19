@@ -2,6 +2,7 @@ package pierpaolo.u5w2d2.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pierpaolo.u5w2d2.config.MailgunSender;
 import pierpaolo.u5w2d2.entities.Autore;
 import pierpaolo.u5w2d2.entities.Post;
 import pierpaolo.u5w2d2.exceptions.BadRequestException;
@@ -19,6 +20,8 @@ import java.util.Random;
 public class AutoreService {
     @Autowired
     private AutoreDAO autoreDAO;
+    @Autowired
+    private MailgunSender mailgunSender;
 
     public List<Autore> getAutori(){ return this.autoreDAO.findAll();}
     public Autore save(NewAutoreDTO body){
@@ -28,6 +31,7 @@ public class AutoreService {
         newAutore.setCognome(body.cognome());
         newAutore.setEmail(body.email());
         newAutore.setDataDiNascita(body.dataDiNascita());
+        mailgunSender.sendRegistrationEmail(newAutore);
         return autoreDAO.save(newAutore);
     }
     public Autore findById(long id){
